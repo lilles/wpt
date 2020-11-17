@@ -1099,19 +1099,21 @@ class SourceFile(object):
                 ))
 
         elif self.content_is_ref_node:
-            rv = RefTest.item_type, [
-                RefTest(
+            rv = RefTest.item_type, []
+            for variant in self.test_variants:
+                url = self.rel_url + variant
+                rv[1].append(RefTest(
                     self.tests_root,
                     self.rel_path,
                     self.url_base,
-                    self.rel_url,
+                    url,
                     references=self.references,
                     timeout=self.timeout,
                     quic=self.quic,
                     viewport_size=self.viewport_size,
                     dpi=self.dpi,
                     fuzzy=self.fuzzy
-                )]
+                ))
 
         elif self.content_is_css_visual and not self.name_is_reference:
             rv = VisualTest.item_type, [
