@@ -91,4 +91,52 @@ test_interpolation({
   {at: 1, expect: 'rgb(255, 165, 0)'},
   {at: 1.5, expect: 'rgb(255, 248, 0)'},
 ]);
+
+test_interpolation({
+  property: 'color',
+  from: 'rgb(255 255 0)',
+  to: 'rgb(0 0 255)',
+}, [
+  {at: -0.3, expect: 'rgb(255, 255, 0)'},
+  {at: 0, expect: 'rgb(255, 255, 0)'},
+  {at: 0.5, expect: 'rgb(128, 128, 128)'},
+  {at: 1, expect: 'rgb(0, 0, 255)'},
+  {at: 1.5, expect: 'rgb(0, 0, 255)'},
+]);
+
+test_interpolation({
+  property: 'color',
+  from: 'rgb(255 255 0)',
+  to: 'color(srgb 0 0 1)',
+}, [
+  {at: -0.3, expect: 'oklab(96.8% -17.75% 49.75%)'},
+  {at: 0, expect: 'oklab(96.8% -17.75% 49.75%)'},
+  {at: 0.5, expect: 'oklab(71% -12.875% -14.125%)'},
+  {at: 1, expect: 'oklab(45.2%, -8% -78%)'},
+  {at: 1.5, expect: 'oklab(45.2% -8% -78%)'},
+]);
+
+test_interpolation({
+  property: 'color',
+  from: 'color(srgb 1 1 0)',
+  to: 'rgb(0 0 255)',
+}, [
+  {at: -0.3, expect: 'oklab(96.8% -17.75% 49.75%)'},
+  {at: 0, expect: 'oklab(96.8% -17.75% 49.75%)'},
+  {at: 0.5, expect: 'oklab(71% -12.875% -14.125%)'},
+  {at: 1, expect: 'oklab(45.2%, -8% -78%)'},
+  {at: 1.5, expect: 'oklab(45.2% -8% -78%)'},
+]);
+
+test_interpolation({
+  property: 'color',
+  from: 'color(srgb 1 1 0)',
+  to: 'color(srgb 0 0 1)',
+}, [
+  {at: -0.3, expect: 'oklab(96.8% -17.75% 49.75%)'},
+  {at: 0, expect: 'oklab(96.8% -17.75% 49.75%)'},
+  {at: 0.5, expect: 'oklab(71% -12.875% -14.125%)'},
+  {at: 1, expect: 'oklab(45.2%, -8% -78%)'},
+  {at: 1.5, expect: 'oklab(45.2% -8% -78%)'},
+]);
 </script>
